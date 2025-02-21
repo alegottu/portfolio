@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog - Off the Backburner</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../projects/projects.html">Projects</a></li>
+								<li><a href="../blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Off the Backburner</a></h2>
+								<h3>
+									
+								</h3>
+								<p>5/20/20</p>
+							</header>
+						<a href="#" class="image featured"><img src="" alt="" /></a>
+							<p>
+								<p>I've run out of new things to implement until my partner stirs up a new level design, so I've decided to take care of the glaring "to do" comments in my code concerning collision and camera control. Since I switched to rotating raycasts for collision, testing if the player is grounded and also within a "Tile" game object is now a much more complex task. To make sure the same process could be accomplished, I decided to flesh out the use of the list I created very early on within the CollisionManager, in which I intended to store any objects the player is currently colliding with. This way, I can easily test if the player is grounded by looking for an object that satisfies a certain name or property, which can also be used to center the camera on each tile the player enters. Weirdly, the first solution that came to mind was to use more lists that were separate for each raycast, as it seems to be the most efficient method that still works alongside detecting what side of the player an object is colliding with. Within each method that draws the raycasts, whenever the raycast returns any game object, I add it to one of the respective lists, and then whenever any raycast has stopped returning something, I loop through each separate list, removing any congruent objects from the current collisions list. Tecnically, this doesn't update 100% accurately, but since the player is always rotating, it's definitely a great approximation.</p>
+<p>After I got settled with that, I decided to fix some other lurking bugs surrounding the camera, which essentially boiled down to fixing the sequence and applying "else" logic while modifying the camera's culling mask. The non-existent scalability of the rotating raycasts also urked me, so I decided to actually figure out the trigonometry that I briefly tested and sorted out how to relate it to the scale of the object. It turned out that the sine and cosine waves division by 2 was necessary in order to split my 1 by 1 sized object into a sine or cosine wave sized half, and that half needed to be scaled up or down by having the objects vertical or horizontal scale being another divisor under 2. In case I run into more problems (I will), I decided to start work on a separate class that makes logging error messages much quicker and accurate to go about. Hopefully it will be useful for whatever I work on next.</p>
+							</p>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>

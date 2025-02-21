@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog - Having Fun</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../projects/projects.html">Projects</a></li>
+								<li><a href="../blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Having Fun</a></h2>
+								<h3>
+									
+								</h3>
+								<p>4/25/20</p>
+							</header>
+						<a href="#" class="image featured"><img src="" alt="" /></a>
+							<p>
+								<p>As I've gotten a lot done in terms of fundamentals, I've started to dabble a little bit in topics that are unnecessary towards the game, even if they might be a worthwhile addition, such as physics based animation. As part of the physics system based on the collision manager, I added a function which would control any object in the game that would be pushed by the player, and was fairly simple to implement physics based animation for since it would be all linear. When I started having fun with it, I decided to try the same thing with levers, and it took me over an hour to create a function to clamp Euler angle values because I couldn't find any documentation on it. I succeeded in just clamping the lever enough to get it to stop rotating, but for some odd reason, presumably having to do with some function of the engine that I don't understand, the lever would always go 0.001 degrees past the clamped value, and therefore the player would be unable to push it back. I decided it wasn't completely necessary for the game at this stage and tossed it aside in favor of simple logic so I can complete the prototype for now. I might work around this using a timing mechanism present in the level at some point in the future, however.</p>
+							</p>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>

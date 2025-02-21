@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog - Knowing Your Game</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../projects/projects.html">Projects</a></li>
+								<li><a href="../blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Knowing Your Game</a></h2>
+								<h3>
+									
+								</h3>
+								<p>5/23/20</p>
+							</header>
+						<a href="#" class="image featured"><img src="" alt="" /></a>
+							<p>
+								<p>After coming back to work on my project with a fresh mind, I realized that I had over engineered the mechanics concerning collision and allowing the player to push around objects. I replaced the need for two colliders on each side of the player by simply placing one on the front of the player, and of course having it match the side that the player is currently moving towards. With this done, I could also use the direction of the player's input to affect the direction that the object which the player pushes should go, rather than handling this separately for two different colliders. </p>
+<p>Speaking of removing extraneous code and utility, I'm also looking into optimizing the lists which keep track of the objects currently colliding with the player. Having lists for both separate sides of the player (to interact differently with the blunt and pointed end of the pin) and a combined list for all collisions only complicates maintaining the two of them. Optimizing this currently isn't my priority, as there quite literally isn't a need for the latter list yet, but I'm leaving a note for myself here that if there ever is, to simply search between both lists, or to devise a way to guarantee when you only need to look in one, such as using the already implemented raycasts to know what side of the player is more important to know about colliding objects. Sometimes, it's better to make educated assumptions about your data rather than chase your own tail accounting for every possible and often unfeasible situation.</p>
+							</p>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog - Hiccups</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../projects/projects.html">Projects</a></li>
+								<li><a href="../blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Hiccups</a></h2>
+								<h3>
+									
+								</h3>
+								<p>5/18/20</p>
+							</header>
+						<a href="#" class="image featured"><img src="" alt="" /></a>
+							<p>
+								<p>The fixes necessary for midair movement was definitely more of a bumpy road than what I was expecting, but it also revealed a lot of weaknesses in the current structure of the player controller. The first problem I encountered was specifically how to interact with the DOTween plugin, especially when the object had to rotate opposite of the direction it was moving while in midair. At first, the parameter I had setup to control the rotating animation was the rigidbody's horizontal velocity, but I quickly realized I had to change this to a variable containing the horizontal input axis in order for it to work. I ran into a strange problem while implementing this, where the player would begin to rotate backwards very briefly, and then immediately stop. This is where I realized the structure at which I declared the horizontal input axis to a variable was flawed in a way I wasn't aware was possible before. Near the beginning of the update method, I had the variable set to be equal to the horizontal input axis like normal, but I also had to control it while in midair so that it would gradually shift from one direction to the other, instead of looking very jittery. I accomplished this separately later in the update method, and it took me quite awhile to realize that Unity was favoring the former whenever the logic for both was true, causing the little hiccup when the rotation finally managed to switch directions. Since they were both taking place in the update method, I just combined them into one ternary operator and the job was done. I also managed to have a personal hiccup in that I accidentally tried to use a nonexistent z, being that I had accidentally created a vector2 instead of a vector3. It's amusing to me now, but I left my desk frustrated after struggling with parameters with decomposed methods, because I had named them the same as class variables, only to confirm that this didn't matter at all, and I had simply become very used to only using vector2's. Either way, the rest of the logic was relatively simple, and all the hiccups inspired me to refactor the script further and make sure all my naming schemes were consistent. All nice and clean for whenever I pick it up next.</p>
+							</p>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>
