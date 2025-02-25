@@ -136,7 +136,16 @@ for proj, config in projs.items():
     project = ""
     name = config['name'][0]
     if 'link' in config:
-        project = f"<header><h3><a href={config['link'][0]}>[ Download on itch.io ]</a></h3></header>"
+        link = config['link'][0]
+        
+        if 'password' in link:
+            project = f"<header><h3><a href={config['link'][0]}>[ Play on itch.io ]</a></h3></header>"
+        elif 'itch' in link:
+            project = f"<header><h3><a href={config['link'][0]}>[ Download on itch.io ]</a></h3></header>"
+        elif 'garden' in link:
+            project = f"<header><h3><a href={config['link'][0]}>[ Find Out More On Our Website! ]</a></h3></header>"
+        else:
+            project = f"<header><h3><a href={config['link'][0]}>[ View Source on GitHub ]</a></h3></header>"
     else:
         project = f'<header><iframe frameborder="0" src="https://itch.io/embed-upload/{config["upload"][0]}?color=333333" allowfullscreen="" width="1200" height="675"></iframe></header>'
 

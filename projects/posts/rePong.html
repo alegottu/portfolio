@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Projects - rePong</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../projects.html">Projects</a></li>
+								<li><a href="../../devlog/blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">rePong</a></h2>
+							</header>
+						<header><iframe frameborder="0" src="https://itch.io/embed-upload/"12920514"?color=333333" allowfullscreen="" width="1200" height="675"></iframe></header>
+						<p>"rePong" is a new rendition of the classic game Pong; this was one of my earliest projects, developed as part of the AP Computer Science Principles assessment. It features the ability to charge up power before reflecting the ball, the ability for the the ball to go off the screen, a gradually increasing pace, and an entirely single player experience.</p>
+<p>In terms of design, the biggest challenge I encountered with this project was devising how to make a fundamentally multiplayer game single player without the use of sophisticated AI, as this was meant to be a much smaller scale venture. Because the "AI" for this game simply follows the exact position of the ball at a fixed rate, I originally settled for an endless version of the game, where score was calculated based off the amount of time the player "survives." But even to me, the need to outlast a perfect bot in a simple game of Pong didn't seem like much fun.</p>
+<p>Although the quote "it's not a bug, its a feature" is almost always perceived as a joke in the game development community, I had never considered its potential validity until developing this game. While trying to balance the element where the ball speed gradually rises as each player hits it, I accidentally phased the ball through the bot's paddle once it had got to a high enough speed. At first, it didn't occur to me why this happened, because I could still easily see the ball's movement at that speed. However, I realized later that it was because I was using a much simpler version of collision detection based on the ball's position rather than using Unity's standard Collider component. I opted for this earlier because I knew that I would want to be able to affect the ball's trajectory much more freely after a collision, but also to simply gain more programming experience by not relying on too many built in systems. Lucky for me, this system also allowed my game to be more like an actual game of Pong, where now it was a contest to see who could make the ball reach a winning speed first, which was also fair enough for the player since the bot is not able to use the "charge shot" feature.</p>
+<p>The greatest opportunity I saw in developing this game from that point on was to learn to depend on my own systems more often, even if they aren't conventional at times or the absolute best possible solution. While built-in tools for game engines are very useful for larger projects and prototypes, I feel the limits I placed on myself for the development of this one actually forced my hand at creativity much further, and I also had the additional benefit of knowing my own code much more than the entirety of the Unity engine. Another example of this ended up actually providing a more efficient solution for a problem I have attempted previously. In the past, I have used the Stopwatch C# object to make a cooldown for abilities, enemy spawning, or etc. I had always became slightly infuriated having to calculate milliseconds, working with the Stopwatch functions, as well as having an entirely new Object to initialize and possibly have to fulfill dependencies for. This time, I used a simple float value that was chipped away by the Time.deltaTime property in the Update loop, reset it each time the player uses the specified ability, and allow the player to use the ability again once that float reaches 0 or below. Despite it's simplicity, I think it's also a more adequate solution for a simple task, where as the Stopwatch built in to C# is more complex and flexible as a result of being more accommodating to various situations.</p>
+<p>While there are still many more opportunities within this project to clean up code and seek out more features, I am confident in the overall success that I had in completing a working game in a relatively short amount of time, and I hope you get a bit of enjoyment and insight out of my experiences and the game itself.</p>
+						<a href="#" class="image featured"><img src="../images/pong.png" alt="" /></a>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>
