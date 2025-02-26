@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../../assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+		<link rel="icon" href="../../logo.png">
 	</head>
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
@@ -44,7 +45,7 @@
 							<header>
 								<h2><a href="#">rePong</a></h2>
 							</header>
-						<header><iframe frameborder="0" src="https://itch.io/embed-upload/"12920514"?color=333333" allowfullscreen="" width="1200" height="675"></iframe></header>
+						<header><h3><a href=https://alegottu.itch.io/repong?password=portfolio6Zv5P78Hp6>[ Play on itch.io ]</a></h3></header>
 						<p>"rePong" is a new rendition of the classic game Pong; this was one of my earliest projects, developed as part of the AP Computer Science Principles assessment. It features the ability to charge up power before reflecting the ball, the ability for the the ball to go off the screen, a gradually increasing pace, and an entirely single player experience.</p>
 <p>In terms of design, the biggest challenge I encountered with this project was devising how to make a fundamentally multiplayer game single player without the use of sophisticated AI, as this was meant to be a much smaller scale venture. Because the "AI" for this game simply follows the exact position of the ball at a fixed rate, I originally settled for an endless version of the game, where score was calculated based off the amount of time the player "survives." But even to me, the need to outlast a perfect bot in a simple game of Pong didn't seem like much fun.</p>
 <p>Although the quote "it's not a bug, its a feature" is almost always perceived as a joke in the game development community, I had never considered its potential validity until developing this game. While trying to balance the element where the ball speed gradually rises as each player hits it, I accidentally phased the ball through the bot's paddle once it had got to a high enough speed. At first, it didn't occur to me why this happened, because I could still easily see the ball's movement at that speed. However, I realized later that it was because I was using a much simpler version of collision detection based on the ball's position rather than using Unity's standard Collider component. I opted for this earlier because I knew that I would want to be able to affect the ball's trajectory much more freely after a collision, but also to simply gain more programming experience by not relying on too many built in systems. Lucky for me, this system also allowed my game to be more like an actual game of Pong, where now it was a contest to see who could make the ball reach a winning speed first, which was also fair enough for the player since the bot is not able to use the "charge shot" feature.</p>

@@ -1778,6 +1778,11 @@ input, select, textarea {
 
 /* Image */
 
+/* Added to accomodate images in generated HTML */
+img {
+	width: 100%;
+}
+
 	.image {
 		position: relative;
 		display: inline-block;
