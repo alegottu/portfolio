@@ -38,7 +38,7 @@ for post, config in posts.items():
 
 # render the list of posts to the blog index (categorized)
 template = template_env.get_template('blog/bloglayout.html')
-listitems = ["","",""] # Personal, Game Development, Español
+listitems = ["","",""] # Personal, Español, Game Development
 
 for post, config in posts.items():
     category = config['category'][0]
@@ -55,9 +55,9 @@ for post, config in posts.items():
     if category == "Personal":
         listitems[0] += item
     elif category == "Game Development":
-        listitems[1] += item
-    else:
         listitems[2] += item
+    else: # ID'd by language tag
+        listitems[1] += item
 
 with open("blog/blog.html", 'w') as output:
     output.write(
@@ -86,6 +86,7 @@ for file in Path('projects/markdown').iterdir():
     projs[temp] = md.Meta
     # any pages without entries being duped over for now (key is by text in md)
 
+# can probably reverse the sort instead of negative here
 def score(score_str):
     return -int(score_str.strip('"'))
 
@@ -147,7 +148,8 @@ for proj, config in projs.items():
         else:
             project = f"<header><h3><a href={config['link'][0]}>[ View Source on GitHub ]</a></h3></header>"
     else:
-        project = f'<header><iframe frameborder="0" src="https://itch.io/embed-upload/{config["upload"][0]}?color=333333" allowfullscreen="" width="1200" height="675"></iframe></header>'
+        upload = config["upload"][0].strip('"')
+        project = f'<header><h3>[ Play here or read more below! ]</h3><iframe frameborder="0" src="https://itch.io/embed-upload/{upload}?color=333333" allowfullscreen="" width="1200" height="675"></iframe></header>'
 
     with open(f"projects/posts/{name}.html", 'w') as output:
         output.write(
