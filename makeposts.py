@@ -38,7 +38,7 @@ for post, config in posts.items():
 
 # render the list of posts to the blog index (categorized)
 template = template_env.get_template('blog/bloglayout.html')
-listitems = ["","",""] # Personal, Español, Game Development
+listitems = ["","",""] # Español, Personal, Game Development
 
 for post, config in posts.items():
     category = config['category'][0]
@@ -52,12 +52,12 @@ for post, config in posts.items():
     <a href="{file}"><p>{config['date'][0]}</p></a>
 </div>\n"""
 
-    if category == "Personal":
-        listitems[0] += item
-    elif category == "Game Development":
+    if category == "Game Development":
         listitems[2] += item
-    else: # ID'd by language tag
+    elif category == "Personal":
         listitems[1] += item
+    else: # ID'd by language tag
+        listitems[0] += item
 
 with open("blog/blog.html", 'w') as output:
     output.write(
