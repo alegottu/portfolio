@@ -26,6 +26,9 @@ posts = dict(sorted(posts.items(), key=lambda item: date(item[1]['date'][0])))
 
 # render each post to its own html file
 for post, config in posts.items():
+    if config['category'][0] == 'WIP':
+        continue
+
     with open(f"blog/posts/{config['file'][0]}.html", 'w') as output:
         output.write(
             template.render(
@@ -52,7 +55,9 @@ for post, config in posts.items():
     <a href="{file}"><p>{config['date'][0]}</p></a>
 </div>\n"""
 
-    if category == "Game Development":
+    if category == "WIP":
+        continue
+    elif category == "Game Development":
         listitems[2] += item
     elif category == "Personal":
         listitems[1] += item
