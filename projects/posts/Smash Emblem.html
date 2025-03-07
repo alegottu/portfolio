@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Projects - Yokai Horror</title>
+		<title>Projects - Smash Emblem</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../../assets/css/main.css" />
@@ -43,13 +43,12 @@
 					<div class="container">
 						<article id="main" class="special">
 							<header>
-								<h2><a href="#">Yokai Horror</a></h2>
+								<h2><a href="#">Smash Emblem</a></h2>
 							</header>
-						<header><h3><a href=https://github.com/alegottu/Yokai-Horror>[ View Source on GitHub ]</a></h3></header>
-						<p>Yokai Horror was recently started by myself and a team of friends after graduating from college. As of now, there are only some short GIFs of stealth mechanics, shaders, and some character concepts done. Even in the short time working on it so far, I've learned a lot! This project is what got me started with the Godot engine, and it's been very enjoyable to encorporate low-level programming in the project using C++ via Godot 4's GDExtension features. I hope to expand on this project very soon, once our team is ready!
-<img alt="" src="../images/yokai0.gif" />
-<img alt="" src="../images/yokai1.gif" /></p>
-						<a href="#" class="image featured"><img src="../images/yokai.gif" alt="" /></a>
+						<header><h3><a href=https://alegottu.itch.io/gdim32?password=portfolio6Zv5P78Hp6>[ Play on itch.io ]</a></h3></header>
+						<p>A strategy game partly inspired by Smash Bros and Fire Emblem, where within a turn-based system you attempt to knock out your opponents from the playing area. The biggest challenge, as well as the focus for this project, was developing the AI for each troop for when you play against an AI opponent. This required me to develop my own state machine in C#, where each state was its own class and handled its own execution, as well as any transitions to the next state. This design ended up being very versatile and easy to expand upon once the foundation was set, but getting to that point required me to devise a way for a state and troop object in the code to communicate with each other, and at the same time to ensure that a given state could only communicate with the troop it corresponded to, while still being able to access relevant information about the state of the game. Some of the solution to this was universal to all states, which lead to a great use case for an abstract parent class, but some of it, like the relevant information a state would need access to, had to be on a case by case basis for each particular state. </p>
+<p>If I were to revisit and expand on this project, I would love to go back and design more troop AIs for the player to go up against, leading to something of an entire single-player campaign. I'm quite satisfied with how I set up the underlying system for troop AIs to work, and I think that would make it a really fun project to iterate quickly on. </p>
+						<a href="#" class="image featured"><img src="../images/32.png" alt="" /></a>
 						</article>
 						<hr />
 					</div>
