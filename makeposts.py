@@ -113,9 +113,12 @@ for proj, config in projs.items():
 
 # generate blog features
 features = ""
+posts = dict(sorted(posts.items(), key=lambda item: -date(item[1]['date'][0])))
+num_posts = 0
+max_posts = 3
 
-for post, config in reversed(posts.items()):
-    if 'priority' in config:
+for post, config in posts.items():
+    if config['category'][0] != "WIP":
         ref = f"blog/posts/{config['file'][0]}.html"
         features += f"""\
         <article class="col-4 col-12-mobile special">
@@ -125,6 +128,9 @@ for post, config in reversed(posts.items()):
             </header>
             <p>{config['summary'][0]}</p>
         </article>"""
+        
+        num_posts += 1
+        if num_posts >= max_posts: break
 
 with open("index.html", 'w') as output:
     output.write(
