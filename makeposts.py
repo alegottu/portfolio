@@ -9,7 +9,7 @@ template = template_env.get_template('blog/postlayout.html')
 posts = dict()
 
 for file in Path('blog/markdown').iterdir():
-    md = Markdown(extensions=['meta'])
+    md = Markdown(extensions=['meta', 'fenced_code'])
     post = md.convert(file.read_text())
     posts[post] = md.Meta
 

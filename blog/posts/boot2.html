@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog - Creating the Retro 2.5D Look of "Bootsies"!</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+		<link rel="icon" href="../../logo.png">
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../projects/projects.html">Projects</a></li>
+								<li><a href="../blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Creating the Retro 2.5D Look of "Bootsies"!</a></h2>
+								<h3>
+									
+								</h3>
+								<p>5/30/25</p>
+							</header>
+						<a href="#" class="image featured"><img src="" alt="" /></a>
+							<p>
+								<h2>Introduction</h2>
+<p>Hey there! This post will be Playgarden Game's first devlog for our upcoming game, Bootsies! I'd like to share with everyone a bit about my learning from designing a retro 3D look for the backgrounds featured in the game, as well as for some one-off assets, and making it fit with the 2D sprites for the main characters. Before recent years I was only a programmer by trade; with this venture, I've been able to take my philosophies and knowledge from programming and apply it to 3D art. Because of the limited nature of hardware when real-time 3D graphics was the latest development in software, the process for developing 3D art for these consoles was very technical in nature. Everything not only had to look good, but still allow the game to perform well under very specific limitations, such as for texture sizes and mappings, data within the models themselves, and how lighting would be calculated. Along with that, tools and software to create these and deploy these assets were much simpler than the ones we have today, and quite often created by the developers themselves. Emulating these limitations, and the techniques they gave rise to, to the best of my ability, as well as fusing them with more modern conveniences and flares, was an exciting part of this project I'd like to share with everyone, and I hope some insight or inspiration can be gained from it. I won't be going over everything in excruciating detail, just the main components that I think really helped to solidify the art style for Bootsies; if there's a lot of questions, I'll be sure to follow up with more!</p>
+<p>The first aspect of the 3D art for Bootsies that I want to discuss is the overall vision for each scene. Because we're attempting to emulate the technical limitations of the PS2 or similar consoles, that applies not just to individual elements like textures, but also to the scene as a whole, depending on what needs to be rendered in that scene all at once at any given time. Ultimately, the approach I took for Bootsies is this: if you can save on data (polygons, pixels, colors, etc.) somewhere without affecting how "cool" the scene looks, then do it. Of course, how cool the scene looks is entirely subjective to the artist, but that gives this approach a personal touch from any artist, and the main focus still remains to make every byte of data in the scene meaningful. If, in your opinion, a bigger texture, a more complex color palette, a normal map, or any other measure of (technically speaking) more detail doesn't add to your enjoyment of the scene, than it would be a waste of data. For the stages in Bootsies, this extends even beyond 3D: hopefully it would have been somewhat difficult to notice without me telling you, but there are many assets that could have been 3D, but turned into a billboard 2D sprite instead. Of course, this is a common level-of-detail technique, but under my personal opinion on the approach I outlined, it strikes a balance of only being noticeable when you look closely, but nonetheless purposefully noticeable. You might find that this is a common theme among all the assets in the stages, inspired by my own personal outlook on PS2 era graphics. To the player, in the moment, they still feel very real (even realistic), but inspecting them as an artist, developer, or avid gamer, you can really see every bit of the technology that makes it possible. As someone who really enjoys both learning about what makes video games work, and learning more about art of all kinds, I hope that same air shines through the stages of Bootsies. </p>
+<h2>Modeling</h2>
+<p>The first part of the process for creating all the stages in Bootsies is of course modeling the geometry - exploring these models more closely should be an example of striking the balance that I mentioned earlier. When purely discussing polygon count, there is no exact measurement or limit for polygons needed. Even though that would be novel in terms of studying the limits of earlier consoles, we obviously have a lot more room to work with these days, and this is one case where emulating not just the retro style, but also retro techniques doesn't add a substantial amount to the former, at least in my opinion. There's certainly value to be gained from replicating the original style of a given console down to the last polygon reasonably able to be rendered in real time on that hardware, but I would say that's more in the realm of a project aiming to conserve even the tiniest technical details of a game on that console. For Bootsies, the goal of combining the feel of those limited technical details with the ability to still add modern style (or admittedly, convenience) on top doesn't require that level of adherence as far as polygon counts, although as mentioned previously, that's not to say that there will never be a time when that won't be required or very beneficial. In this case, the ends justify the means: like pictured below, as long as the final model has enough polygons to where it looks detailed from afar, but no so much that you couldn't see the individual segments close up, all's well that ends well. The visual example here of striking the balance between realism and apparent technical details (especially in the case of our friend Peng) are the segments on a sphere. Just like pixels on a screen, if you make a sphere out of enough polygons, your brain will interpret it as a perfectly smooth curve, rather than a bunch of tiny triangles. By breaking that illusion only while close to the model (close being relative to wherever the player will view the model from), we can give the player a glimpse into the amazing technology that is turning a bunch of triangles in 3D space into a cohesive character. </p>
+<p><img alt="" src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcBNExOagGfvaHTxJFVfx-5K63m3s2f0wAtBrDphuzHSKY34Lb0SaUnZEkLKw2bvKUAUTW5GChbc6rrL6EvtgXeidV0U5BeiYzS8GLUKwhHMoMeQb9nGyj1hD40HstbyozpDQ-yfA?key=kV4ZCOX24_6fC9_2c6PcL_cm" /></p>
+<h2>A Word on Vertex Lighting</h2>
+<p>The other focuses during the modeling process for the stages in Bootsies refer to all the other aspects that make the scenes come together: namely lighting and rendering techniques, and in the case of this article, lighting is the main one worth discussing. Lighting is really what pulls together 3D scenes in any style in my opinion, so we'll be discussing it throughout the article, but for topology specifically it's important to introduce that Bootsies uses per-vertex lighting, rather than per-pixel. Although per-pixel lighting on the PS2 or similar consoles technically was possible, it was rarely if ever used because it was unreasonably expensive on that hardware, considering the amount of objects to be dynamically lit in most games. This is because per-pixel lighting affects the color of every pixel to be rendered on an object, lighter or darker, depending on the location of the light source to that pixel. On the other hand, per-vertex lighting only cares about the location of the light source relative to each vertex in a model, and when the final pixels are rendered, the light or darkness of a given pixel is simply interpolated based on the lighting of the vertices on a model. For example, if you have a simple plane with 4 vertices, and the renderer calculates that only the top-left vertex is affected by the light source(s) in the scene, about 1/4th of the plane with appear to be lit, being most intense at the top left corner, and dying off further to the right or downward. Although per-pixel lighting is ubiquitous today (to the point where the current version of Godot at the time didn't feature per-vertex lighting built-in), there really isn't a reasonable alternative to emulate per-vertex lighting using per-pixel techniques, so this is one case where emulating the limitations of the old hardware can't be ignored. </p>
+<p>We'll talk implementation details of vertex lighting when we're putting all the pieces together, but the reason it's important to have an idea of it now is because it should affect the final topology of each model. For example, even if we had a very simple door that's topologically just a very thin cube, it would be a mistake not to subdivide the planes on that cube that we know will be dynamically affected by light in the scene, since there would be far too little lighting detail if the entire front of the door, for example, was being lit according to only 4 vertices. Finally, before we move onto the next part of the process for each scene, coloring models, it's worth mentioning that every part of the process here bleeds into one another in a way where you want to consider how each part carry part of the burden for another part. For example, in the case of rendering colors to models, if we decide to use a texture for a given model, then there's a decent chance that that texture can carry a good amount of detail where the first instinct might have been to add more triangles. This usually comes in handy for objects with especially complex shapes, such as a chain link fence: instead of modeling each individual wire as cylinders, just model the overall shape of the fence as using some planes, and the rest of the detail can be carried by a good texture.</p>
+<h2>Color</h2>
+<p>Although textures are the main way you'll ever see of coloring models today, I've been keeping it broad intentionally to not exclude vertex colors, which most of the models in Bootsies use to some extent. I say "to some extent" because you can also mix the usage of both vertex colors and textures, unlike the fact that per-vertex and per-pixel lighting are (almost always) mutually exclusive. However, the idea behind vertex colors is very similar to that of per-vertex lighting: instead of applying color across the surface of a model by sampling the color from each pixel in a texture, we assign colors to each vertex in a model, and the topology in between those vertices are interpolated like a gradient. There are a few ways you can decide to mix the techniques, the simplest of which just being to blend the colors sampled from texture and the interpolated vertex colors for each pixel being rendered for an object. Another example from our implementation would be using the alpha channel from the vertex colors as a sort of blending mask, where an alpha of 1 means only use the texture, and an alpha of 0 means only use the vertex color (you could also write a shader to do the opposite, for whatever makes the most sense to you). You can see this applied below, where the vertex colors on the roof have an alpha value of 0, the vertex colors on the walls have an alpha value of 1, and the vertex colors on the vertical logs of the cabin have an alpha value somewhere in between 0 and 1. </p>
+<p><img alt="" src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXdfVf0vXp1D5lf8VkvGieyLJOSfYJ6AszNXJEoJuLG9y8VmDnY9Ia3IhKEvUa6xdOHz5y9Z2PYvJu_NtX5hyTLZkK8BpX-R_jtWaYN6h-DF2SfoxUFK9D6Yqo4YT6HvmhpHLG96yA?key=kV4ZCOX24_6fC9_2c6PcL_cm" /></p>
+<p>The second main thing to discuss for coloring models is static or more accurately faking lighting using both vertex colors and textures. The idea is very rudimentary: for any static light sources in the scene, we draw shadows into textures and vertex colors based on how those static light sources would affect those objects. You might notice that what I'm talking about is essentially what light baking does, and while this is true, there are a couple of reasons to actually manually complete this process rather than automating in our case. One is up to the artist's preference, where the process doesn't need to be so scientific; for example, if you have a crate in your scene, it might look good to you to darken the parts of the texture that end up on the corners of the crate. That may not be how the light in the scene actually works, but that's okay of course. The other reason is more technical: lightmaps. Baking light in a scene today almost always generates a lightmap rather than directly darkening or lightening the texture, which is obviously a good thing because it conserves your original textures, but the equivalent of lightmaps for vertex colors are unfortunately very difficult to work with using even the latest version of Godot. </p>
+<p>This is because a lightmap for vertex colors would actually just be another layer of vertex colors, similar to how an actual lightmap is just another texture that tells the renderer how much to darken the same areas on another corresponding texture. However, Godot's representation of 3D models only allow for one layer of vertex colors; while it is possible to convert a second layer of vertex colors and convert them to a different set of data on the model, such as UVs, you have to create your own shader for this, and that's still only possible when you aren't using those other aspects of the model. Because of that as well as for stylistic choice, all the "baked" lighting on Bootsies' scene was just done by hand, but I encourage you to do your own research on how you go about it before you start, especially as the Godot engine improves and depending on the circumstances of your own game. Whichever path you choose, if you want to go for a similar retro-style, just remember to continue to keep things economic: if you can rather convincingly accomplish all your static lighting with just vertex colors, go for it!</p>
+<h2>Implementation</h2>
+<p>With that, it's time to start putting everything together and talk a bit of implementation details. Keep reading if you're interested in learning about graphics programming or if you're using this as a guide, but otherwise feel free to skip to the conclusion. In the spirit of open source, any specific examples for 3D modeling software will use Blender, but the all the techniques we've talked about so far are doable with any software. The first point of interest when implementing our scenes is a material setup: in this case this is mostly useful for implementing the scenes within our 3D modeling software of choice, so that we can quickly iterate there and be confident in how it will look once we decide to export it - the actual rendering within Godot will often be a custom shader, which we'll expand on shortly. That being said, you can find below my example of a material in Blender to take advantage of a combination of vertex colors and textures, like in the cabin example shown earlier. The only thing to note in this example that stands out from your standard Blender material is exactly how we decided to utilize our vertex colors, which is exactly as we discussed with the log cabin example, where the alpha of the vertex colors is essentially used to diminish the colors from the texture if needed, and then both forms of color are added together for the final product. </p>
+<p><img alt="" src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXd3cpqALVXsIMxJHZ8eUY3ukpMc6jNczmjIAYiaGFBOTfqNuS2A90FU1PSVx_Y8ouyHFRZ8qCE_oGqdtzGNT1z0TsZmRhI6uVVeDdK5TLlFY1sJSvTocGEzubQUt_RQyQl1-hvB3Q?key=kV4ZCOX24_6fC9_2c6PcL_cm" /></p>
+<p>The good news is that exporting your models should be quite standard, although you might have to do a bit of tweaking to handle exporting vertex colors correctly. Just make sure that your vertex colors are being factored in when exporting, which for Blender would mean setting "Use Vertex Color" to "Active" under the "Mesh" section, then the "Vertex Colors" section in the export dialogue. The more interesting challenge here is to implement a similar effect within a Godot shader as mentioned previously, since Godot's material pipeline is set up to just take in information such as vertex colors, vertices, and texture info; you can consider all the additional nodes, like multiplying the alpha of the vertex colors with the texture colors, pretty much like a visual shader program. So in order to translate this effect properly in Godot, we want to figure out how we can access the same data, and then use the same formula that the visual program represents. In our case that's as simple as putting the following code, where <code>COLOR</code> is Godot's built-in uniform variable for vertex colors, and <code>ALBEDO</code> is the same for texture data:</p>
+<pre><code class="language-C">uniform sampler2D albedo_texture : source_color, filter_nearest;
+
+void fragment()
+{
+    ALBEDO = texture(albedo_texture, UV).xyz;
+    ALBEDO *= COLOR.a;
+    ALBEDO += COLOR.xyz * COLOR.a;
+}
+</code></pre>
+<p>We have this in our fragment shader because this requires both texture and vertex color data, as opposed to putting the code in the vertex stage, where only per-vertex data will be processed. Note that our albedo doesn't have an alpha here, so there is no transparency on this object. It might also seem like we've added an extra multiplication when calculating the sum at the end, which is valid compared to our material setup, but it tries to replicate how transparency with vertex colors would <em>appear</em> in the way that a color diminishes the more transparent it is. So if the alpha value for that vertex color was 0.5, it would appear half as strong in the final sum and even out the balance between vertex color and texture, which is also how it would appear in Blender unless if we also used an opaque setup there. Bear in mind that this only replicates the exact setup I showcased with the log cabin, so try to experiment with the formula depending on the needs of your game! That could mean mixing the color data less evenly, applying a different way to "toggle" between them, integrating noise into the equation for a jittery effect, or whatever your heart desires. </p>
+<p>We also need to set up vertex lighting using a shader; we'll be going over some lighting physics to set the scene, so if you already know your stuff feel free to skip right to the code; just note that the lighting model it uses, meaning how the code tries to emulate how lights should "physically" affect our objects, is very simplified and not accurate to physics or standard vertex lighting, even though understanding those physics are still important to create your own unique implementation. I felt that this model best amplified the sort of geometric effect you can get with vertex lighting in our scenes, but once again I'd recommend plenty of experimentation. For another reference, especially if you're interested in graphics programming, I'd recommend <a href="https://www.learnopengles.com/tag/per-vertex-lighting/">this article</a> on the same subject using OpenGL; it might require some prerequisite learning to fully understand every detail of the code, but you can also just pay attention to the parts that make intuitive sense and definitely gather some knowledge on what a standard setup would look like.</p>
+<p>With that being said, the essential parts to understand from both my own setup and others are how to calculate the effect of light on the color of each vertex based on the distance and angle of that light relative to a vertex. The first of these is very intuitive: the farther away from the light source the object is, the less the light will have an effect on it - often called attenuation. Actual light attenuates exponentially, but any equation is fine as long as that relationship is there. The reasoning behind the importance of the angle of the light to each object is also quite intuitive, where we are trying to determine how directly, and therefore how brightly, a light shines onto a given object. We do this using a dot product between the normal of a vertex and the normalized coordinates to the light source, which can be confusing to wrap your head around, but the important thing to know is that the dot product becomes 0 when two vectors are perpendicular to each other. For example, for a vertex facing sideways in the middle of the scene, with a light source directly above it, we can determine that no light will directly reach it using the dot product, like shown below, where <code>N</code> is the normal of that vertex, and <code>L</code> is the position of light (if you think about that vector as a line rather than a point, we get a line pointing to the light source).</p>
+<p><img alt="" src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXePaUYQqO6PMZN3iQfEo1Rtm_NgTjhiQHSj1yfPAv0_yK68o_sKqnRd7F7XFozZyFvbm3vrp8_HlOjPrKS6xegDSbc9MjZoNKFThT_THfwyU3u4Hz88TtpAXD8HUHn3v6vmNLzH?key=kV4ZCOX24_6fC9_2c6PcL_cm" /></p>
+<p>To make sure this product gives us a reasonable factor for lighting in other cases, we have to normalize both <code>N</code> and <code>L</code>, which just means that they'll turn into a line of length 1 while maintaining their direction (tangent: the "normal" of a vector refers to the "normal" force in physics, not the normalization of scale like in the case of a normalized vector). All of that leads us to the following shader code, where <code>NORMAL</code> represent <code>N</code> and <code>light_pos</code> represents <code>L</code>:</p>
+<pre><code class="language-C">void vertex()
+{
+    float brightness = min(0.0f, dot(normalize(NORMAL), normalize(light_pos))) + light_radius;
+    brightness /= distance(VERTEX, light_pos);
+    COLOR.xyz *= light_color * pow(brightness, light_intensity);
+}
+</code></pre>
+<p>You can see there are plenty of liberties I took with the concepts I described above, which is just one way to have fun with this style of lighting. Besides the simplifications to the math that I mentioned, the <code>light_radius</code> uniform just makes it easier for the light to have an effect the larger it is (according to that number), and the <code>light_intensity</code> uniform makes the light increase it brightness faster the higher it is. The key point here however that achieves vertex lighting however is simply the fact that we're modifying the built-in <code>COLOR</code> variable mentioned previously, which can be done within the vertex shader. This setup unfortunately does require that you have the position of your lights at the least as exported uniforms in your shader, which is admittedly not as nice as being able to change the position of them visually. You could set up a script to set these uniforms using the position of actual <code>Light3D</code> nodes in a scene, but Godot 4.4 does offer built-in vertex lighting on materials if you enable it, if you just want the standard effect with much less friction. </p>
+<h2>Conclusion</h2>
+<p>I hope this article can inspire some of you to get out there and create some amazing art! Through working on this project, I feel like I've been able to bring out a latent artistic potential from myself that I hid behind the belief that I was better suited for programming; I truly believe everyone has the ability to express themselves through art, even if it's not through more conventional means like painting or drawing! I've always felt myself that I haven't had the time or skills to pursue traditional arts like those, but there are so many mediums to pursue art through - even on a micro-level, it was very rewarding to explore ways to innovate on existing artistic mediums. For example, a lot of the textures were created by taking photos (royalty-free or my own of course), and using or tweaking photo editing algorithms to give them the look of an authentic retro texture, with limited color palettes and resolutions. Hopefully this article goes to show that programming itself can be a very creative process too, but especially when used for the purpose of creating something for other's to see and experience, rather than just to serve a specific purpose.</p>
+<p>If you've made it this far, thank you for reading my article! Whether you were looking for hype on Bootsies, inspiration, or educational content, I hope it was well worth your time! Look forward to more Bootsies art and content soon, and please do leave any comments in our Discord!</p>
+							</p>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>
