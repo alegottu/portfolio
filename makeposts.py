@@ -22,7 +22,7 @@ def date(text) -> int:
     return sum(nums)
 
 # sort posts by date
-posts = dict(sorted(posts.items(), key=lambda item: date(item[1]['date'][0])))
+posts = dict(sorted(posts.items(), key=lambda item: -date(item[1]['date'][0])))
 
 # render each post to its own html file
 for post, config in posts.items():
