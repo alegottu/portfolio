@@ -1786,7 +1786,11 @@ input, select, textarea {
 
 /* Added to accomodate images in generated HTML */
 img {
-	width: 100%;
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 	.image {
@@ -2187,7 +2191,6 @@ img {
 
 	#header {
 		position: relative;
-		background-image: url("../../banners/pixray.png");
 		background-size: cover;
 		background-position: center center;
 		background-attachment: fixed;

@@ -1,6 +1,7 @@
 from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
+import os
 
 template_env = Environment(loader=FileSystemLoader(searchpath='./'))
 template = template_env.get_template('blog/postlayout.html')
@@ -33,6 +34,7 @@ for post, config in posts.items():
         output.write(
             template.render(
                 title=config['title'][0],
+                banner=config['image'][0],
                 date=config['date'][0],
                 excerpt=config.get('excerpt', [''])[0],
                 post=post
@@ -78,7 +80,7 @@ template = template_env.get_template('indexlayout.html')
 images = ""
 
 # generate gallery html
-for image in Path("images/").iterdir():
+for image in sorted(Path("images/").iterdir(), key=os.path.getmtime, reverse=True):
     images += f'<div class="col-4"><img src="images/{image.name}" alt="" width="100%" /></div>'
 
 # generate project carousel for index
@@ -166,7 +168,7 @@ for proj, config in projs.items():
         output.write(
             template.render(
                 name=name,
-                image=config['image'][0],
+                banner=config['image'][0],
                 project=project, 
                 post=proj
             )
