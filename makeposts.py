@@ -31,10 +31,12 @@ for post, config in posts.items():
         continue
 
     with open(f"blog/posts/{config['file'][0]}.html", 'w') as output:
+        image = config['image'][0]
+        image = f"../images/{image}" if not "http" in image else image
         output.write(
             template.render(
                 title=config['title'][0],
-                banner=config['image'][0],
+                banner=image,
                 date=config['date'][0],
                 excerpt=config.get('excerpt', [''])[0],
                 post=post
@@ -48,9 +50,11 @@ listitems = ["","",""] # Español, Personal, Game Development
 for post, config in posts.items():
     category = config['category'][0]
     file = f"posts/{config['file'][0]}.html"
+    link = config['image'][0]
+    link = f"images/{link}" if not "http" in link else link
     item = f"""\
 <div class="col-4">
-    <a href="{file}" class="image fit"><img src="images/{config['image'][0]}" alt="" /></a>
+    <a href="{file}" class="image fit"><img src="{link}" alt="" /></a>
 </div>
 <div class="col-8">
     <a href="{file}"><h4>{config['title'][0]}</h4></a>
@@ -122,9 +126,11 @@ max_posts = 3
 for post, config in posts.items():
     if config['category'][0] != "WIP":
         ref = f"blog/posts/{config['file'][0]}.html"
+        img_link = config['image'][0]
+        img_link = f"blog/images/{img_link}" if not "http" in img_link else img_link
         features += f"""\
         <article class="col-4 col-12-mobile special">
-            <a href="{ref}" class="image featured"><img src="blog/images/{config['image'][0]}" alt="" /></a>
+            <a href="{ref}" class="image featured"><img src="{img_link}" alt="" /></a>
             <header>
                 <h3><a href="{ref}">{config['title'][0]}</a></h3>
             </header>
