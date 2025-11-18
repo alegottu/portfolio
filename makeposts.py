@@ -124,7 +124,7 @@ num_posts = 0
 max_posts = 3
 
 for post, config in posts.items():
-    if config['category'][0] != "WIP":
+    if config['category'][0] != "WIP" and not 'feature' in config: # feature would = false meaning don't feature
         ref = f"blog/posts/{config['file'][0]}.html"
         img_link = config['image'][0]
         img_link = f"blog/images/{img_link}" if not "http" in img_link else img_link
