@@ -1,6 +1,8 @@
 from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
+import sys
+import random
 import os
 
 template_env = Environment(loader=FileSystemLoader(searchpath='./'))
@@ -84,7 +86,10 @@ template = template_env.get_template('indexlayout.html')
 images = ""
 
 # generate gallery html
-for image in sorted(Path("images/").iterdir(), key=os.path.getmtime, reverse=True):
+files = Path("images/").iterdir()
+files = sorted(files, key=os.path.getmtime, reverse=True) if len(sys.argv) == 1 \
+    else sorted(files, key=lambda x: random.random()) # NOTE: randomize gallery if any arg provided
+for image in files:
     images += f'<div class="col-4"><img src="images/{image.name}" alt="" width="100%" /></div>'
 
 # generate project carousel for index
