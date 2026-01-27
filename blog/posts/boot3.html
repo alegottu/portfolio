@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Blog - Automatically Reporting Bugs For Your Games For Free!</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+		<link rel="icon" href="../../logo.png">
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			<div id="header" style="background-image: url('../images/bootsies7.png');">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="../../index.html" id="logo">Alexander Gottuso</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="../../index.html">Home</a></li>
+								<li><a href="../../projects/projects.html">Projects</a></li>
+								<li><a href="../blog.html">Blog</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Automatically Reporting Bugs For Your Games For Free!</a></h2>
+								<h3>
+									
+								</h3>
+								<p>1/27/26</p>
+							</header>
+						<a href="#" class="image featured"><img src="" alt="" /></a>
+							<p>
+								<h2>Introduction</h2>
+<p>Hey all again! The latest news on the Bootsies streets is we've got our hands full with solving bugs, many of which have come to our attention after the launch of our demo and the prospect of getting lots of different hands on our game. On that note, I first want to send a huge thank you to everyone who tried our demo and provided feedback, you're all a big part of what makes Bootsies special! Second, to the game dev community, I wanted to share one of the solutions I was able to cook up in order to better equip ourselves and make sure our final product isn't plagued with any of the bugs previously experienced by players. At first, just writing down the bugs we witnessed during playtests was enough to track them down, but with the demo expanding things to a global scale via online, as well as the prospect of some bugs going unreported (since each play session is not under our supervision anymore), we needed a better solution. My first thought was to use some sort of database in the cloud, but most platforms for said databases allow very limited usage unless you're willing to fork over a good amount of cash. As a team of indie devs working in our spare time, an experience I'm sure a lot of you can relate to, it's pretty safe to say we couldn't afford that. After a bit of research, I discovered using GitHub issues could fit the bill perfectly, and on top of being free, it can work regardless of your game engine, programming language, or any other tool of choice, since the API to access and create an issue on GitHub is entirely through HTTP requests.</p>
+<h2>Legal Tangent</h2>
+<p>It came to our attention while developing this alongside a feature that records player statistics that the data required to track and solve bugs, such as player inputs and essential properties for relevant game objects, can fall under data privacy laws for collecting user data, so make sure to do your own research and create an appropriate mechanism for immediately notifying and allowing players to opt out of said data collection, or create a legal agreement for all users to accept before playing if you want that data to always be collected. </p>
+<h2>Prerequisite - Gathering Data</h2>
+<p>In order for a system like this to be useful for your game (or any software, really) in the first place, we need to know what data we're submitting and when we want to submit it in order to track and help solve an issue. The simplest and most effective answer as to when is whenever there is some sort of critical failure; of course, it would be nice to be able to track non-fatal errors too, which you may have some idea on how to detect, such as the player ending up at some range of coordinates that they normally shouldn't be able to reach, but generally I think it's okay to leave most, if not all non-fatal errors up to good 'ol human discretion. You'll be accounting for a huge chunk of errors automatically, as well as the most critical ones, just with fatal errors, anyway.</p>
+<p>As far as for what data to submit, I think there are two approaches: gather the data that's available at the moment of failure, or log data throughout the game, then retrieve that in some form in the case of a fatal error. Personally, I think if you can do the latter, then you should; the more data you have to tackle a problem the better, and keeping a log of game data will essentially allow you to reproduce the problem on your own machine, rather than having to sleuth information based off a single moment in time. To that end, it's important to log not only the state of the game, but also inputs for your player(s). Doing so will allow you to compare a reproduction of the game (so as long as you create a tool to allow you to mimic inputs at specific timings) against a recording of what actually happened. For Bootsies, our sole focus with this system was to help tackle errors on the multiplayer side of things, so containing the amount of data gathered wasn't too difficult as it could be separated into a log file per match, since game state completely resets for each match. Because of this, I'm not sure what limitations could come into play as your data logs become larger and larger, but so as long as you have an initial state recorded and inputs to replay for each log, you could break up your recording of data by whatever measure you see fit (e.g. per each level), and simply wipe out any old data each time you start logging data again. You'll still have the most relevant data available in the case that a fatal error occurs.</p>
+<h2>Prerequisite - Authentication</h2>
+<p>Before we can actually make any use of GitHub's API, we need to make sure we have some method of authenticating our requests to the API so that each request doesn't just get outright denied. There are a few options for this. First, the option of least resistance would likely be a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token">personal access token</a>, but there are certainly some reasons you might not want to use them. If you don't want to attribute all the activity conducted by these automatic bug reports to only your account, you likely won't want to go with this method. In addition, if any of the limitations for fine-grained personal access tokens listed <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens-limitations">here</a> would be an issue for your use cases, or if you're not sure if they could be an issue, it'd probably be better to find another way, as using a classic personal access token has its own limitations, but also grants anyone who might discover it the same exact privileges as your own account, making it a much juicier target for any bad actors. If you want to avoid even the slightest possibility of those security concerns for peace of mind, or if you just want to attribute the activity of the bug reports to your application, then I think <a href="https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app">installation access tokens</a> are the simplest and best way forward, so that's the method I'll be discussing in the section below. If you want to attach bug reports to a specific user, or otherwise just want to attach some data gathered to a specific user rather than collecting it all under the same entity, you'll likely want to use <a href="https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app">GitHub user access tokens</a>, but this can be harder to set up as it requires some sort of authentication process in your game to provide each user with a way to create their own access token. In theory this process could automatically use someone's Steam credentials or something similar, but that's another thing you'll have to be transparent about legally, or otherwise your users would have to manually enter some sort of credentials within your game. Either way, once you've settled on how you want to authenticate to GitHub, and you've created or already have a GitHub repository in the first place, you should be ready to start writing some code soon.</p>
+<h2>Authentication Part 2 Electric Boogaloo</h2>
+<p>If you'd like to use installation access tokens as well, read on, otherwise you can skip this section and follow the other articles linked above as needed. For the most part, for installation access tokens you can also simply follow GitHub's article, but there are some pitfalls I ran into personally that I'd like to mention for those who also aren't familiar with authentication processes for REST APIs. The first is that <a href="https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app">JWTs</a> aren't something you can get away with generating once, since they expire at most 10 minutes into the future. I'd actually recommend creating them to expire much less than that amount into the future, because I experienced some API errors trying to use the maximum amount of time, and you almost certainly won't need to authenticate the same user for longer than a few minutes each time anyway. Write or grab a function from a library that generates one from your GitHub App's private key, and you're off to the races. Another issue I had with generating JWTs at runtime was that I ended up having to use my app's client ID, as the app ID kept causing me to run into errors as well. It's possible this is just coincidence due to my specific programming language, or just that I ended up fixing something else while changing to using the client ID at the same time, but GitHub's docs are non-specific about why client ID is preferred, just that it is, so I thought it might be worth mentioning.</p>
+<h2>Getting Started</h2>
+<p>Before we move on to any specifics or special cases that may arise due to using GitHub issues, if you've never worked with a REST API or otherwise with an API over HTTP before, <a href="https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api">GitHub's own documentation</a> is a great place to start. In my own case, with a bit of trial and error I was able to use this documentation as a reference for whatever I already knew would be useful to me, so I personally started from <a href="https://docs.github.com/en/rest/issues/issues#create-an-issue">this section</a> on creating an issue via the API, and worked backwards for any requirements that had to be fulfilled in order for that endpoint to work in the way that I wanted. In other words, you can leave this stuff open in another tab until you start facing some questions. You'll notice the only code example is in JavaScript, but as with any HTTP API, that's far from meaning you can only use JavaScript, you'll just have to find out how to handle HTTP requests in your specific language, including how to specify each part of the request, i.e. the method type, all the headers, the full path / URL, and finally the actual data being sent. For the use case of this tutorial, we really don't need to send a high volume of requests from any single client, so it's worth considering using a scripting language with built-in high level functionality for HTTP requests, such as JavaScript or even GDScript, since the biggest bottleneck in performance is going to be the HTTP request itself, rather than the code handling only a few of those requests at most. Of course, don't force it if that doesn't fit easily into your project, since the goal of using one of these workflows is to make things easier on the programmer in the first place.</p>
+<p>Now, in order to get started on some actual code, I'd first recommend just doing one basic HTTP request to test that you can get any of those going within the necessary context in your project in the first place. For Bootsies, we want to track anytime an online match fails to connect or if something causes it to fail midway, so I first tested just by purposely corrupting a match, then ensuring that the request to get an installation token was completing without receiving any error messages instead. It was my first time using the GitHub API, so I encountered a variety of errors just trying to get one request to work, and most of them were easily solved by digging further into the documentation. You certainly don't want to have those simple errors hidden by appearing as seemingly more complicated problems due to adding a bunch more logic before handling the basics. If you don't need to make a request in order to authenticate, such as while using a personal access token, then you can just try creating an issue via a request first instead, where the issue itself doesn't need to be anything specific.</p>
+<h2>Unique Challenges</h2>
+<p>After you've conquered that, you're actually already half way there! Depending on the data you need the issue to track, however, you might encounter some challenging limitations posed by the endpoints working with GitHub issues, as well as the limitations of a REST API itself. I can't account for all of these myself of course, but I can tell you more about the ones that I personally struggled with, which can hopefully prove useful in your case as well.</p>
+<p>For the design of Booties' ticketing system specifically, I encountered a few limitations with the API that I had to work around. A couple of these both stemmed from the fact that I had too much data to store within a single issue. As we touched on much earlier, that data includes any game state and player inputs necessary to essentially produce a recording of the entire match, while still being able to determine what should have happened in the event of some abnormality. The system for logging all this information was already available to me via the <a href="https://gitlab.com/BimDav/delta-rollback">Delta Rollback</a> Godot addon, which stores all this information in a file for each log, as otherwise the amount of RAM used could become way too large. The developers of this addon also decided, I assume to save space and for simplicity, not to encode these files, rather than using some text-based encoding, which would be necessary to stay keep the data in line with HTTP. I was actually unaware that these log files were just raw binary data at first, having no reason to investigate them before, and attempting to force the data read from these files into part of the string used for an HTTP request made a critical part of the data appear the same every time, as there was only a small amount of the file that was actually valid as a string - which, I'm embarrassed to admit, took me much longer to figure out than it should have. So while it may seem obvious to some, be extra certain the data you're trying to send via HTTP is actually HTTP compatible.</p>
+<p>However, even once I figured out this first mistake, I still ran into the core of the issue: all the data contained in even just one of these log files, when encoded as Base64, was too much for a single issue to contain. The limit appears to be 65,536 unicode characters, according to posts of some error messages by other users online. While researching the issue, I also came across a sort of workaround: instead of trying to directly post all the data you need as part of the issue, you can first put all the data in a new file in your repository, then use a link to that file as the body of the issue. The endpoint for creating content in a repository is only limited by the maximum amount of information you can send in a single request, which can be determined by a number of properties of the client and server, but in my case turned out to be more than enough, and should be for almost all cases. Because using this method will create a new commit for each file created this way, along with the file itself potentially cluttering the repository, I decided the best way to organize would be to create an orphan branch (a branch with no commit history via <code>git checkout --orphan &lt;branch_name&gt;</code>) specifically for storing the log files, that way the commits nor the files themselves would interfere with regular work on the repository, without having to create an entirely new repository. </p>
+<p>Because I needed to track bugs related to networked multiplayer, I also needed to ensure to obtain all the necessary data from both clients, so solving these first two challenges above was only half the battle. In order to get all the data I needed from the other player while still organizing it under the same issue as the first player, the solution I devised was to post the link to the second player's log file as a comment to the issue that the first player creates. The most difficult part about handling this was the timing of it; I didn't want to force players to automatically submit their log files upon the code recognizing a netcode error has occurred, both for legal and moral reasons, but also to give users the option of simply quitting in the case that something has gone wrong on their end (e.g. disconnecting from the internet). Because of this, we have to make sure neither player gets stuck waiting for the other player. Once the connection closes, we can no longer get any info from the other player, so it's also possible for the host to be waiting infinitely upon the second player in order to try and send them the info about the issue to comment on. In order to prevent this, we only have to keep the host connected for at least half the RTT to the other peer after sending this info to said peer, but any less and the connection will be interrupted midway. In my case, I had the host stay connected for the entire RTT plus some extra (2 seconds) just in case, since I was going just based off the latest ping for RTT, rather than an average or the highest recorded. There are several other instances of players submitting their info at different timings that had to be accounted for, but the rest could be solved just by making sure there was a maximum amount of time that any player can wait for a certain signal, as well as structuring the ticketing routine to immediately quit if we receive a signal that the connection has been lost. </p>
+<p>One final challenge that might be more obvious to those experienced with REST APIs or with JSON and HTTP in general, but still worth mentioning, is to be wary of characters interpreted specially either by JSON or HTTP syntax. For example, if you're getting part of the path / URL for a request programmatically (e.g. randomly generating the name of a file you want to post), make sure to look out for any characters that would normally be escaped in a URL (using % plus the hex value for that character). I also admittedly had to do quite a bit of trial and error to figure out that, trying to add newlines as part of a string for a certain JSON property (since the data for each endpoint is formatted this way) has to be done with "\\n", as just "\n" will be handled as a newline for the source JSON, rather than just being included as a character within the string.</p>
+<h2>Conclusion</h2>
+<p>Ultimately, the main idea I wanted to convey through this article is that creating your own free, automatic bug ticketing system is possible, and GitHub's API is a fairly easy and very solid tool you can use in order to accomplish that. If your game is fairly large scale, and you don't have a team of play testers at the ready, I think deploying this method with a demo or otherwise early / contained release of your game can be a very effective way to polish out any bugs before release, as well as to stay vigilant towards any bugs after release. If you've read up 'til this point, thank you! I hope any of the information above has proven useful to you. Look forward to more on the development and creative process of Bootsies soon! If you enjoyed, take a look at our <a href="https://store.steampowered.com/app/4062850/Bootsies_Demo/">Steam page</a>, <a href="https://discord.gg/PnSgeR4UF5">Discord</a>, or <a href="https://www.playgardengames.com/#socials">other social media</a>, we truly appreciate any support!</p>
+							</p>
+						</article>
+						<hr />
+					</div>
+
+				</div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										
+										<ul class="icons">
+											<li><a href="https://alegottu.itch.io/" class="icon brands fa-itch-io"><span class="label">Itch.io</span></a></li>
+											<li><a href="https://github.com/alegottu" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+											<li><a href="https://www.linkedin.com/in/alexander-gottuso-15a66a1b8/" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/browser.min.js"></script>
+			<script src="../../assets/js/breakpoints.min.js"></script>
+			<script src="../../assets/js/util.js"></script>
+			<script src="../../assets/js/main.js"></script>
+
+	</body>
+</html>
