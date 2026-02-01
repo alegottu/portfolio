@@ -163,10 +163,17 @@ input, select, textarea {
 		transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
 	}
 
-		a:hover {
-			color: #ef8376;
-			border-bottom-color: transparent;
-		}
+	a:hover {
+		color: #ef8376;
+		border-bottom-color: transparent;
+	}
+
+/*
+TODO: cant be done without making separate hx a:visited/hover styles
+	a:visited {
+		color: purple;
+	}
+*/
 
 	sub {
 		position: relative;
