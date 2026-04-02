@@ -163,7 +163,7 @@ for proj, config in projs.items():
     if 'link' in config:
         link = config['link'][0]
         
-        if 'password' in link:
+        if 'password' in link or 'embed' in config:
             project = f"<header><h3><a href={config['link'][0]}>[ Play on itch.io ]</a></h3></header>"
         elif 'itch' in link:
             project = f"<header><h3><a href={config['link'][0]}>[ Download on itch.io ]</a></h3></header>"
