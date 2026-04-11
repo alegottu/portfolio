@@ -11,12 +11,25 @@ template = template_env.get_template('blog/postlayout.html')
 # parse markdown files for posts
 posts = dict()
 
-for file in Path('blog/markdown').iterdir():
-    md = Markdown(extensions=['meta', 'fenced_code'])
-    post = md.convert(file.read_text())
-    posts[post] = md.Meta
+for path in Path('blog/markdown').iterdir():
+    def get_md(p: Path) -> str:
+        md = Markdown(extensions=['meta', 'fenced_code'])
+        post = md.convert(p.read_text())
+        posts[post] = md.Meta
+        return post
 
-def date(text) -> int:
+    if path.is_dir():
+        for file in path.iterdir():
+            post = get_md(file)
+            if file.name == path.name + '.i.md':
+                posts[post]['subindex'] = True
+                continue
+            posts[post]['parent'] = path.name
+    else:
+        get_md(path)
+
+def date(text: str) -> int:
+    if ' - ' in text: text = text.split(' - ')[1]
     nums = text.split('/')
     nums = list(map(int, nums))
     nums[0] *= 31
@@ -29,7 +42,7 @@ posts = dict(sorted(posts.items(), key=lambda item: -date(item[1]['date'][0])))
 
 # render each post to its own html file
 for post, config in posts.items():
-    if config['category'][0] == 'WIP':
+    if config['category'][0] == 'WIP' or 'subindex' in config:
         continue
 
     with open(f"blog/posts/{config['file'][0]}.html", 'w') as output:
@@ -48,10 +61,12 @@ for post, config in posts.items():
 # render the list of posts to the blog index (categorized)
 template = template_env.get_template('blog/bloglayout.html')
 listitems = ["","",""] # Español, Personal, Game Development
+subindices, subposts = dict(), dict()
 
 for post, config in posts.items():
     category = config['category'][0]
     file = f"posts/{config['file'][0]}.html"
+    if 'subindex' in config: file = file[6:]
     link = config['image'][0]
     link = f"images/{link}" if not "http" in link else link
     item = f"""\
@@ -65,7 +80,13 @@ for post, config in posts.items():
 
     if category == "WIP":
         continue
-    elif category == "Game Development":
+    if 'parent' in config:
+        subposts[config['parent']] = subposts.get(config['parent'], "") + item
+        continue
+    if 'subindex' in config:
+        subindices[config['file'][0]] = config['title'][0]
+
+    if category == "Game Development":
         listitems[2] += item
     elif category == "Personal":
         listitems[1] += item
@@ -80,6 +101,16 @@ with open("blog/blog.html", 'w') as output:
             items2=listitems[2],
         )
     )
+
+template = template_env.get_template('blog/subindexlayout.html')
+for subindex, subpost in subposts.items():
+    with open(f"blog/{subindex}.html", 'w') as output:
+        output.write(
+            template.render(
+                name=subindices[subindex],
+                items=subpost,
+            )
+        )
 
 # render index 
 template = template_env.get_template('indexlayout.html')
