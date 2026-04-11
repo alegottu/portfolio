@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import random
 import os
+import subprocess
 
 template_env = Environment(loader=FileSystemLoader(searchpath='./'))
 template = template_env.get_template('blog/postlayout.html')
@@ -118,8 +119,17 @@ images = ""
 
 # generate gallery html
 files = Path("images/").iterdir()
-files = sorted(files, key=os.path.getmtime, reverse=True) if len(sys.argv) == 1 \
-    else sorted(files, key=lambda x: random.random()) # NOTE: randomize gallery if any arg provided
+if len(sys.argv) == 1:
+    sorted(files, key=lambda x: random.random())
+elif sys.argv[1] == "rand":
+    files = sorted(files, key=os.path.getmtime, reverse=True)
+else:
+    def tall(img: Path) -> float:
+        res = subprocess.run(f"identify -format '%w %h' {img}", capture_output=True, shell=True).stdout
+        width, height = [ int(d) for d in res.decode().split() ]
+        return height / width;
+    files = sorted(files, key=tall)
+
 for image in files:
     images += f'<div class="col-4"><img src="images/{image.name}" alt="" width="100%" /></div>'
 
