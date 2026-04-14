@@ -17,7 +17,7 @@
 		<div id="page-wrapper">
 
 			<!-- Header -->
-			<div id="header" style="background-image: url('../images/bootsies.png');">
+			<div id="header" style="background-image: url('../images/bootnet.png');">
 
 					<!-- Inner -->
 						<div class="inner">
@@ -71,18 +71,18 @@
 <p>However, even once I figured out this first mistake, I still ran into the core of the issue: all the data contained in even just one of these log files, when encoded as Base64, was too much for a single issue to contain. The limit appears to be 65,536 unicode characters, according to posts of some error messages by other users online. While researching the issue, I also came across a sort of workaround: instead of trying to directly post all the data you need as part of the issue, you can first put all the data in a new file in your repository, then use a link to that file as the body of the issue. The endpoint for creating content in a repository is only limited by the maximum amount of information you can send in a single request, which can be determined by a number of properties of the client and server, but in my case turned out to be more than enough, and should be for almost all cases. Because using this method will create a new commit for each file created this way, along with the file itself potentially cluttering the repository, I decided the best way to organize would be to create an orphan branch (a branch with no commit history via <code>git checkout --orphan &lt;branch_name&gt;</code>) specifically for storing the log files, that way the commits nor the files themselves would interfere with regular work on the repository, without having to create an entirely new repository. </p>
 <p>Because I needed to track bugs related to networked multiplayer, I also needed to ensure to obtain all the necessary data from both clients, so solving these first two challenges above was only half the battle. In order to get everything I needed from the other player while still organizing it under the same issue as the first player, the solution I devised was to post the link to the second player's log file as a comment to the issue that the first player creates. The most difficult part about handling this was the timing of it; I didn't want to force players to automatically submit their log files upon the code recognizing a netcode error has occurred, both for legal and moral reasons, but also to give users the option of simply quitting in the case that something has gone wrong on their end (e.g. disconnecting from the internet). Because of this, we have to make sure neither player gets stuck waiting for the other player - the second player needs to wait for info about the issue the host posts to GitHub in order to comment on it, and once this is done, the host needs a sort of handshake from the second player to confirm both players are participating. Once the connection closes, we can no longer get any info from the other player, so if someone decides not to participate or otherwise disconnects midway, either player could end up waiting infinitely for a message that will never come.</p>
 <figure>
-    <img src="../images/d1.png">
+    <img src="../images/bootnet0.png">
     <figcaption>P2 chooses not to post their data; since P2 needs to know the right issue to comment on, P1 needs to verify P2 receives this information, and waits infinitely trying to do so when there are no failsafes in place</figcaption>
 </figure>
 
 <p>Both players will disconnect after they've completed their part of the process, so simply finishing this routine upon receiving a disconnection signal from the other player could cause the host to wait longer than necessary (the time it takes to post their own info to GitHub plus however long it takes the other player), so in the host's case, in order to prevent a deadlock while still making sure the other player still receives our message, we can just keep the host connected for at least half the RTT (Round Trip Time: the time it takes to send a message over the network and get a response) to the other peer after sending this info to said peer. Any less, however, and the message will be interrupted midway.</p>
 <figure>
-    <img src="../images/d2.png">
+    <img src="../images/bootnet1.png">
     <figcaption>Even if P2 disconnects at some point while P1 is trying to verify the issue information has been sent, waiting at least half the RTT then disconnecting will still help ensure the message reaches P2 while preventing P1 from waiting infinitely</figcaption>
 </figure>
 
 <figure>
-    <img src="../images/d3.png">
+    <img src="../images/bootnet2.png">
     <figcaption>Example timeline for a successful ticket: P1 posts the initial issue on GitHub, P2 posts their info as a comment once they know the correct issue to comment on (e.g. #142), then disconnects as soon as they're done, and P1 disconnects, at latest, roughly after half the RTT</figcaption>
 </figure>
 

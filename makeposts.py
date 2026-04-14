@@ -1,17 +1,53 @@
 from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
-import sys
-import random
 import os
 import subprocess
+import sys
+import random
 
+# parse arguments for globals
+MODE_FULL = False
+THUMB_SIZE = "150"
+FEAT_SIZE = "300"
+RANDOM_GALLERY = False
+GALLERY_BY_DATE = False
+
+for arg in sys.argv[1:]:
+    if "-f" in arg:
+        MODE_FULL = True
+    elif "-t" in arg:
+        THUMB_SIZE = sys.argv[2]
+        sys.argv.pop(1)
+    elif "-t" in arg:
+        FEAT_SIZE = sys.argv[2]
+        sys.argv.pop(1)
+    elif "-r" in arg:
+        RANDOM_GALLERY = True
+    elif "-d" in arg:
+        GALLERY_BY_DATE = True
+    else:
+        break
+    sys.argv.pop(1)
+
+# helper functions
+def resize_image(image: str, thumb: bool, trim_root: bool) -> str:
+    extension = ""
+    if image[-3:] != "gif":
+        size = THUMB_SIZE; extension = ".thumb"
+        if not thumb:
+            size = FEAT_SIZE; extension = ".feat"
+        if not os.path.isfile(image) or MODE_FULL:
+            subprocess.run(f'convert {image} -resize "x{size}" {image}{extension}', shell=True, check=True)
+    if trim_root: image = image[image.find('/')+1:]
+    return image + extension
+
+# start writing html via templates from markdown
 template_env = Environment(loader=FileSystemLoader(searchpath='./'))
 template = template_env.get_template('blog/postlayout.html')
 
 # parse markdown files for posts
 posts = dict()
-
 for path in Path('blog/markdown').iterdir():
     def get_md(p: Path) -> str:
         md = Markdown(extensions=['meta', 'fenced_code'])
@@ -47,12 +83,10 @@ for post, config in posts.items():
         continue
 
     with open(f"blog/posts/{config['file'][0]}.html", 'w') as output:
-        image = config['image'][0]
-        image = f"../images/{image}" if not "http" in image else image
         output.write(
             template.render(
                 title=config['title'][0],
-                banner=image,
+                banner=config['image'][0],
                 date=config['date'][0],
                 excerpt=config.get('excerpt', [''])[0],
                 post=post
@@ -66,21 +100,20 @@ subindices, subposts = dict(), dict()
 
 for post, config in posts.items():
     category = config['category'][0]
+    if category == "WIP": continue
     file = f"posts/{config['file'][0]}.html"
     if 'subindex' in config: file = file[6:]
-    link = config['image'][0]
-    link = f"images/{link}" if not "http" in link else link
+    image = f"blog/images/{config['image'][0]}"
+    image = resize_image(image, True, True)
     item = f"""\
 <div class="col-4">
-    <a href="{file}" class="image fit"><img src="{link}" alt="" /></a>
+    <a href="{file}" class="image fit"><img src="{image}" alt="" /></a>
 </div>
 <div class="col-8">
     <a href="{file}"><h4>{config['title'][0]}</h4></a>
     <a href="{file}"><p>{config['date'][0]}</p></a>
 </div>\n"""
 
-    if category == "WIP":
-        continue
     if 'parent' in config:
         subposts[config['parent']] = subposts.get(config['parent'], "") + item
         continue
@@ -119,9 +152,9 @@ images = ""
 
 # generate gallery html
 files = Path("images/").iterdir()
-if len(sys.argv) == 1:
+if RANDOM_GALLERY:
     sorted(files, key=lambda x: random.random())
-elif sys.argv[1] == "rand":
+elif GALLERY_BY_DATE:
     files = sorted(files, key=os.path.getmtime, reverse=True)
 else:
     def tall(img: Path) -> float:
@@ -151,17 +184,17 @@ projs = dict(sorted(projs.items(), key=lambda item: score(item[1]['score'][0])))
 
 for proj, config in projs.items():
     name = config['name'][0]
+    image = f"projects/images/{config['image'][0]}"
+    image = resize_image(image, False, False)
     ref = f"projects/posts/{name}.html"
     carousel += f"""\
     <article>
-        <a href="{ref}" class="image featured"><img src="projects/images/{config['image'][0]}" alt="" /></a>
+        <a href="{ref}" class="image featured"><img src="{image}" alt="" /></a>
         <header>
             <h3><a href="{ref}">{name}</a></h3>
         </header>
         <p>{config['summary'][0]}</p>
     </article>"""
-
-# NOTE: can have drop down menu for projects (list within list in nav for html)
 
 # generate blog features
 features = ""
@@ -172,11 +205,11 @@ max_posts = 3
 for post, config in posts.items():
     if config['category'][0] != "WIP" and not 'feature' in config: # feature would = false meaning don't feature
         ref = f"blog/posts/{config['file'][0]}.html"
-        img_link = config['image'][0]
-        img_link = f"blog/images/{img_link}" if not "http" in img_link else img_link
+        image = f"blog/images/{config['image'][0]}"
+        image = resize_image(image, False, False)
         features += f"""\
         <article class="col-4 col-12-mobile special">
-            <a href="{ref}" class="image featured"><img src="{img_link}" alt="" /></a>
+            <a href="{ref}" class="image featured"><img src="{image}" alt="" /></a>
             <header>
                 <h3><a href="{ref}">{config['title'][0]}</a></h3>
             </header>
@@ -233,9 +266,11 @@ listitems = ["","",""] # list categories are now Personal, Collaboration, Studen
 for proj, config in projs.items():
     category = config['category'][0]
     file = f"posts/{config['name'][0]}.html"
+    image = f"projects/images/{config['image'][0]}"
+    image = resize_image(image, True, True)
     item = f"""\
 <div class="col-4">
-    <a href="{file}" class="image fit"><img src="images/{config['image'][0]}" alt="" /></a>
+    <a href="{file}" class="image fit"><img src="{image}" alt="" /></a>
 </div>
 <div class="col-8">
     <a href="{file}"><h4>{config['name'][0]}</h4></a>
@@ -258,4 +293,3 @@ with open("projects/projects.html", 'w') as output:
         )
     )
 
-# generate blog spotlight on index
