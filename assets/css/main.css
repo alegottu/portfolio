@@ -2449,19 +2449,6 @@ img {
 				border-right: solid 0.75em rgba(64, 64, 64, 0);
 			}
 
-/* Banner */
-
-	#banner {
-		background: #fff;
-		text-align: center;
-		padding: 4.5em 0 4.5em 0;
-		margin-bottom: 0;
-	}
-
-		#banner header > p {
-			margin-bottom: 0;
-		}
-
 /* Content */
 
 	#content > hr {
@@ -2719,13 +2706,6 @@ img {
 					padding-left: 2em;
 					padding-right: 2em;
 				}
-
-		/* Banner */
-
-			#banner {
-				padding-left: 2em;
-				padding-right: 2em;
-			}
 
 		/* Footer */
 
@@ -3132,12 +3112,6 @@ img {
 
 			#nav {
 				display: none;
-			}
-
-		/* Banner */
-
-			#banner {
-				padding: 3em 2em 3em 2em;
 			}
 
 		/* Sidebar */
